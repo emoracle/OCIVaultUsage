@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "oci-keymanagement": "^2.91.1"
+  }
+}
