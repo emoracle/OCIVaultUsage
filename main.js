@@ -22,6 +22,7 @@ const kmsCryptoClient = new kms.KmsCryptoClient({ authenticationDetailsProvider:
     await decryptFromAES(kmsCryptoClient, config.keyId, ciphertext);
 
     //const rsaKeyId = await createRSAKey(kmsManagementClient, config.compartmentId, "Test_RSA_Key_v1");
+    // const arskeyId = await createAESsleutel(kmsManagementClient, config.compartmentId, "Test_AES_Key_v3"); 
 
     //The public key is not available in the response of the createKey operation,  But it is available in the version of the key.
     const rsaKeyVersion = await getCurrentVersion(kmsManagementClient, config.rsaKeyId);
@@ -37,6 +38,7 @@ const kmsCryptoClient = new kms.KmsCryptoClient({ authenticationDetailsProvider:
     // Print the public certificate (the pem format)
     console.log('\nPublic cert:\n', publicCert);
 
+    
   } catch (error) {
     console.log(error);
   }
@@ -60,6 +62,7 @@ async function getVault(client, vault) {
 
 /**
  * Creates an AES sleutel (key) using the specified client, compartment ID, and display name.
+ * Protection mode is set to software (free) and not the default Hsm
  * @param {object} client - The client object used to create the key.
  * @param {string} compartmentId - The ID of the compartment where the key will be created.
  * @param {string} displayName - The display name of the key.
@@ -74,6 +77,7 @@ async function createAESsleutel(client, compartmentId, displayName) {
       },
       compartmentId: compartmentId,
       displayName: displayName,
+      protectionMode: kms.models.CreateKeyDetails.ProtectionMode.Software,
       freeformTags: getSampleFreeformTagData()
     }
   });
@@ -164,7 +168,7 @@ function getSampleLoggingContext() {
 
 /**
  * Creates an RSA key.
- * 
+ * protectionMode is set to software (free) and not the default Hsm
  * @param {object} client - The client object.
  * @param {string} compartmentId - The compartment ID.
  * @param {string} displayName - The display name.
@@ -179,6 +183,7 @@ async function createRSAKey(client, compartmentId, displayName) {
       },
       compartmentId: compartmentId,
       displayName: displayName,
+      protectionMode: kms.models.CreateKeyDetails.ProtectionMode.Software,
       freeformTags: getSampleFreeformTagData()
     }
   });
