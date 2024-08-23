@@ -22,7 +22,7 @@ const kmsCryptoClient = new kms.KmsCryptoClient({ authenticationDetailsProvider:
     await decryptFromAES(kmsCryptoClient, config.keyId, ciphertext);
 
     //const rsaKeyId = await createRSAKey(kmsManagementClient, config.compartmentId, "Test_RSA_Key_v1");
-    // const arskeyId = await createAESsleutel(kmsManagementClient, config.compartmentId, "Test_AES_Key_v3"); 
+    //const aeskeyId = await createAESsleutel(kmsManagementClient, config.compartmentId, "Test_AES_Key_v3"); 
 
     //The public key is not available in the response of the createKey operation,  But it is available in the version of the key.
     const rsaKeyVersion = await getCurrentVersion(kmsManagementClient, config.rsaKeyId);
